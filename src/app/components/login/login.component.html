@@ -1,0 +1,31 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<body *ngIf="!isLoading">
+  <app-navbar></app-navbar>
+  <div class="login-container">
+    <mat-card>
+      <mat-card-title>Ingresa tu correo para continuar...</mat-card-title>
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+        <mat-form-field>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="Correo electrónico"
+            required
+          />
+          <mat-error
+            *ngIf="
+              loginForm.get('email')?.invalid &&
+              (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+            "
+          >
+            Email inválido
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">
+          Continuar
+        </button>
+      </form>
+    </mat-card>
+  </div>
+</body>

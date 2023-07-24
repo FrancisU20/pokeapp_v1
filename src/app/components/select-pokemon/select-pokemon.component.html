@@ -1,0 +1,119 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<body *ngIf="!isLoading">
+  <app-navbar></app-navbar>
+  <div class="register-container">
+    <div class="welcome-container">
+      <a routerLink="/register"
+        ><mat-icon class="center-icon">chevron_left</mat-icon></a
+      >
+      <div class="text-container">
+        <h1>¡Ya casi términamos!</h1>
+        <h2>Revisa la información, y completa lo solicitado.</h2>
+      </div>
+    </div>
+    <div class="info-container">
+      <div class="info-colum-image">
+        <mat-card class="image-container">
+          <mat-card-header class="image-header">
+            <mat-card-title class="image-title">{{
+              userData.name
+            }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-card class="profile-photo">
+              <img mat-card-image src="{{ userData.image }}" />
+            </mat-card>
+            <div class="image-subtitle">
+              <mat-card-subtitle>
+                <div><span>Pasatiempo:</span></div>
+                <div class="spacer-subtitle"></div>
+                <div>
+                  <h2>{{ userData.hobbie }}</h2>
+                </div>
+              </mat-card-subtitle>
+              <mat-card-subtitle>
+                <div><span>Edad:</span></div>
+                <div class="spacer-subtitle"></div>
+                <div>
+                  <h2>{{ userData.yearsOld }} años</h2>
+                </div>
+              </mat-card-subtitle>
+              <mat-card-subtitle>
+                <div><span>DUI:</span></div>
+                <div class="spacer-subtitle"></div>
+                <div>
+                  <h2>{{ userData.dui }}</h2>
+                </div>
+              </mat-card-subtitle>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="divider"></div>
+      <div class="pokemon-colum-data">
+        <mat-card class="pokemon-container">
+          <mat-card-header>
+            <mat-card-title>Pokémon</mat-card-title>
+            <mat-card-subtitle
+              >Selecciona 3 Pokémon para que sean parte de tu
+              equipo</mat-card-subtitle
+            >
+          </mat-card-header>
+          <div class="slider-pokemons">
+            <a (click)="page !== 0 && backPage()">
+              <mat-icon [ngClass]="{ 'disabled-icon': page === 0 }"
+                >navigate_before</mat-icon
+              >
+            </a>
+            <mat-card-content>
+              <div class="search-form-field">
+                <mat-icon matPrefix>search</mat-icon>
+                <input
+                  [(ngModel)]="searchText"
+                  (input)="filterPokemon()"
+                  placeholder="Buscar por índice, nombre..."
+                />
+              </div>
+              <mat-grid-list cols="3" rowHeight="166px">
+                <mat-grid-tile *ngFor="let pokemon of pokemonData">
+                  <div
+                    fxLayout="column"
+                    class="pokemon-info-container"
+                    [class.disabled-pokemon]="isPokemonNotSelected(pokemon.id)"
+                    (click)="selectPokemon(pokemon.id)"
+                  >
+                    <img src="{{ pokemon.urlImage }}" class="pokemon-image" />
+                    <div
+                      class="pokemon-info-card"
+                      [ngClass]="{
+                        'selected-pokemon': isPokemonSelected(pokemon.id)
+                      }"
+                    >
+                      <div class="pokemon-name-card">
+                        <h5>{{ pokemon.name }}</h5>
+                      </div>
+                    </div>
+                  </div>
+                </mat-grid-tile>
+              </mat-grid-list>
+            </mat-card-content>
+            <a (click)="page !== 1272 && nextPage()">
+              <mat-icon [ngClass]="{ 'disabled-icon': page === 1272 }"
+                >navigate_next</mat-icon
+              >
+            </a>
+          </div>
+          <mat-card-actions>
+            <button
+              [disabled]="isSaveButtonDisabled"
+              [class.disabled-button]="isSaveButtonDisabled"
+              (click)="saveSelectedPokemons()"
+            >
+              Guardar
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</body>

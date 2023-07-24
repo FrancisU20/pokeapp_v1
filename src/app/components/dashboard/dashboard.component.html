@@ -1,0 +1,121 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<body *ngIf="!isLoading">
+  <app-navbar></app-navbar>
+  <div class="register-container">
+    <div class="welcome-container">
+      <a routerLink="/select-pokemon"
+        ><mat-icon class="center-icon">chevron_left</mat-icon></a
+      >
+      <div class="text-container">
+        <h1>¡Hola {{ userData.name }}!</h1>
+        <div class="text-divider"></div>
+        <button (click)="redirectToEditarPerfil()">
+          <mat-icon>edit</mat-icon>Editar perfil
+        </button>
+      </div>
+    </div>
+    <div class="info-container">
+      <div class="info-colum-image">
+        <mat-card class="image-container">
+          <mat-card-header class="image-header">
+            <mat-card-title class="image-title">Entrenador</mat-card-title>
+            <img mat-card-image src="assets/badge.png" />
+          </mat-card-header>
+          <mat-card-content>
+            <mat-card class="profile-photo">
+              <img mat-card-image src="{{ userData.image }}" />
+            </mat-card>
+            <div class="image-subtitle">
+              <mat-card-subtitle>
+                <div><span>Pasatiempo:</span></div>
+                <div class="spacer-subtitle"></div>
+                <div>
+                  <h2>{{ userData.hobbie }}</h2>
+                </div>
+              </mat-card-subtitle>
+              <mat-card-subtitle>
+                <div><span>Edad:</span></div>
+                <div class="spacer-subtitle"></div>
+                <div>
+                  <h2>{{ userData.yearsOld }} años</h2>
+                </div>
+              </mat-card-subtitle>
+              <mat-card-subtitle>
+                <div><span>DUI:</span></div>
+                <div class="spacer-subtitle"></div>
+                <div>
+                  <h2>{{ userData.dui }}</h2>
+                </div>
+              </mat-card-subtitle>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="divider"></div>
+      <div class="pokemon-colum-data">
+        <mat-card class="pokemon-container">
+          <mat-card-header class="pokemons-header">
+            <mat-card-title>Mis Pokémon</mat-card-title>
+            <div class="pokemons-divider-title"></div>
+            <button (click)="redirectToEditarPokemons()"><mat-icon>edit</mat-icon>Editar</button>
+          </mat-card-header>
+          <mat-card-content>
+            <div
+              *ngFor="let pokemon of userData.pokemonsData"
+              class="pokemon-info"
+            >
+              <div class="pokemon-image">
+                <img
+                  [src]="
+                    pokemon.sprites.other.home.front_default ||
+                    pokemon.sprites.front_default
+                  "
+                />
+                <h1>{{ pokemon.species.name }}</h1>
+                <h3>
+                  {{ pokemon.abilities[0].ability.name }}/{{
+                    pokemon.abilities[1].ability.name
+                  }}
+                </h3>
+              </div>
+              <div class="pokemon-stats">
+                <h2>HP</h2>
+                <h2>Ataque</h2>
+                <h2>Defensa</h2>
+                <h2>Ataque Especial</h2>
+                <h2>Defensa Especial</h2>
+                <h2>Velocidad</h2>
+              </div>
+              <div class="pokemon-abilities">
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ pokemon.stats[0].base_stat }}"
+                ></mat-progress-bar>
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ pokemon.stats[1].base_stat }}"
+                ></mat-progress-bar>
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ pokemon.stats[2].base_stat }}"
+                ></mat-progress-bar>
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ pokemon.stats[3].base_stat }}"
+                ></mat-progress-bar>
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ pokemon.stats[4].base_stat }}"
+                ></mat-progress-bar>
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ pokemon.stats[5].base_stat }}"
+                ></mat-progress-bar>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</body>

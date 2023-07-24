@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+@use "@angular/material" as mat;
+
+$pokeappv1-typography: mat.define-typography-config(
+  $font-family: "Poppins, sans-serif",
+);
+
+@include mat.core();
+
+$pokeappv1-primary: mat.define-palette(mat.$indigo-palette);
+$pokeappv1-accent: mat.define-palette(mat.$yellow-palette);
+$pokeappv1-warn: mat.define-palette(mat.$red-palette);
+
+$pokeappv1-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $pokeappv1-primary,
+      accent: $pokeappv1-accent,
+      warn: $pokeappv1-warn,
+    ),
+    typography: $pokeappv1-typography,
+  )
+);
+@include mat.all-component-themes($pokeappv1-theme);
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+body {
+  margin: 0;
+  font-family: Poppins, sans-serif;
+}
+button {
+  background-color:#185a7d;
+  color: white;
+  font-family: Poppins, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  border-radius: 10px;
+  border: none;
+  padding: 10px 20px;
+  width: 225px;
+  height: 50px;
+  cursor: pointer;
+}

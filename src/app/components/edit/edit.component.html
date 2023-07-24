@@ -1,0 +1,111 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+<body *ngIf="!isLoading">
+  <app-navbar></app-navbar>
+  <div class="register-container">
+    <div class="welcome-container">
+      <a routerLink="/dashboard"
+        ><mat-icon class="center-icon">chevron_left</mat-icon></a
+      >
+      <div class="text-container">
+        <h1>¡Hola! de nuevo editemos tu perfil</h1>
+        <h2>Sabemos que los cambios son buenos.</h2>
+      </div>
+    </div>
+    <div class="info-container">
+      <div class="info-colum-image">
+        <mat-card class="image-container">
+          <mat-card-header class="image-header">
+            <mat-card-title class="image-title">Imagen perfil</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-card class="profile-photo">
+              <img
+                mat-card-image
+                [src]="selectedImageURL || 'assets/user.png'"
+              />
+            </mat-card>
+            <div class="photo-upload-container">
+              <input
+                type="file"
+                class="file-input"
+                (change)="onImageSelected($event)"
+                #fileUpload
+                accept="image/*"
+              />
+              <h5>{{ selectedImageName || "Adjunta una imagen" }}</h5>
+              <div class="spacer"></div>
+              <mat-icon *ngIf="!selectedImageURL" (click)="fileUpload.click()"
+                >cloud_upload</mat-icon
+              >
+              <mat-icon
+                *ngIf="selectedImageURL"
+                (click)="clearImage()"
+                color="warn"
+                >restore_from_trash</mat-icon
+              >
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="divider"></div>
+      <div class="info-colum-data">
+        <mat-card [formGroup]="formulario">
+          <!-- Add formGroup directive here -->
+          <mat-card-header>
+            <mat-card-title>Tu información</mat-card-title>
+            <mat-card-subtitle
+              >Completa la siguiente información para editar tu
+              perfil</mat-card-subtitle
+            >
+          </mat-card-header>
+          <mat-card-content>
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput placeholder="Nombre" formControlName="nombre" />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Pasatiempo favorito</mat-label>
+              <mat-select
+                formControlName="pasatiempo"
+                placeholder="Seleccione un pasatiempo"
+              >
+                <mat-option
+                  *ngFor="let pasatiempo of pasatiemposArray"
+                  [value]="pasatiempo"
+                >
+                  {{ pasatiempo }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Cumpleaños</mat-label>
+              <input
+                matInput
+                [matDatepicker]="picker"
+                (dateInput)="onBirthDateChange($event)"
+                formControlName="cumpleanos"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="picker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>DUI</mat-label>
+              <input
+                matInput
+                [mask]="maskDui"
+                placeholder="Cédula de Identidad"
+                formControlName="dui"
+              />
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions>
+            <button (click)="onSubmit()">Continuar</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</body>

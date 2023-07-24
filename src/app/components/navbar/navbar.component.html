@@ -1,0 +1,24 @@
+<mat-toolbar>
+  <div class="logo-container">
+    <img src="assets/logo.png" alt="Logo" class="logo-img" />
+  </div>
+  <div class="spacer"></div>
+  <ng-container *ngIf="router.url !== '/'">
+    <div class="button-container">
+      <button [matMenuTriggerFor]="menu">
+        {{ nombreUsuario }} <mat-icon>expand_more</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" class="menu">
+        <a mat-menu-item (click)="salir()">Salir</a>
+      </mat-menu>
+    </div>
+    <div class="search-container">
+      <mat-icon (click)="toggleCampoTexto()">search</mat-icon>
+      <mat-form-field appearance="outline" *ngIf="mostrarCampoTexto">
+        <mat-label>Buscar</mat-label>
+        <input matInput type="text" />
+        <mat-icon matSuffix (click)="toggleCampoTexto()">close</mat-icon>
+      </mat-form-field>
+    </div>
+  </ng-container>
+</mat-toolbar>
